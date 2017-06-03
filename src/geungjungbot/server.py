@@ -1,14 +1,15 @@
-#!/usr/bin/env python
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
-import json
 import logging as log
-from flask import request, jsonify, Flask, json, make_response
+import sys
+from flask import request, jsonify, Flask,  make_response
 from flask_restful import Api
+
+log.basicConfig(stream=sys.stdout, level=log.DEBUG)
+
 
 app = Flask(__name__)
 api = Api(app)
-
 
 @api.representation('application/json')
 @app.route('/keyboard', methods=['GET'])
@@ -19,7 +20,6 @@ def received_keyboard():
         "type": "text"
     }
     return make_response(jsonify(message), 200)
-
 
 @api.representation('application/json')
 @app.route('/message', methods=['POST'])
@@ -35,7 +35,6 @@ def received_message():
     }
     return make_response(jsonify(message), 200)
 
-
 @api.representation('application/json')
 @app.route('/friend', methods=['POST'])
 def received_friend():
@@ -43,7 +42,6 @@ def received_friend():
     log.info(request.json)
     message = {}
     return make_response(jsonify(message), 200)
-
 
 @api.representation('application/json')
 @app.route('/friend/<user_key>', methods=['DELETE'])
@@ -53,7 +51,6 @@ def received_friend_name(user_key):
     message = {}
     return make_response(jsonify(message), 200)
 
-
 @api.representation('application/json')
 @app.route('/chat_room/<user_key>', methods=['DELETE'])
 def received_chatroom_delete(user_key):
@@ -62,6 +59,5 @@ def received_chatroom_delete(user_key):
     message = {}
     return make_response(jsonify(message), 200)
 
-
-if __name__ == '__main__':
-    app.run(host='localhost', port=5353, debug=True)
+def spin(host='localhost', port=5000, debug=True):
+    app.run(host=host, port=port, debug=debug)
