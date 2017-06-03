@@ -82,12 +82,12 @@ def received_message():
                 m.append('%s : %s' % (k, v))
             message = '\n'.join(m)
         else:
-            if MODE['repeat']:
-                message = content
             if MODE['reverse']:
                 message = raw_content[::-1].encode('utf-8')
+            elif MODE['repeat']:
+                message = content
             else:
-                message = '잠깐만...'
+                message = '훙항힝항홍항항히아하이항'
     except Exception as e:
         log.error(e)
         traceback.print_exc(file=sys.stdout)
