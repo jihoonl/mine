@@ -1,0 +1,18 @@
+[Unit]
+Description=GeungjungBot
+
+[Service]
+ExecStart=/home/jihoonl/research/geungjungbot/scripts/server.py
+Restart=always
+  RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=geungjung
+User=jihoonl
+Group=jihoonl
+Environment=PYTHONPATH=/home/jihoonl/research/geungjungbot/src:${PYTHONPATH}
+Environment=GEUNGJUNG_CONFIG=/home/jihoonl/research/geungjungbot/config/configuration.yaml
+
+[Install]
+WantedBy=multi-user.target
+
