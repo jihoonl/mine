@@ -8,6 +8,9 @@ import sys
 from flask import request, jsonify, Flask,  make_response
 from flask_restful import Api
 
+# My custom module
+import utils
+
 log.basicConfig(stream=sys.stdout, level=log.DEBUG)
 
 app = Flask(__name__)
@@ -43,14 +46,20 @@ def received_message():
         if content == '칭찬해줘' or content == '칭찬':
             idx = randint(0, len(config) - 1)
             message = config[idx]
-        elif content == '나를 따라해':
+        elif content == '사랑해':
+            message = '나도 사랑해' + utils.get_heart(2)
+        elif content == '따라해':
             if not MODE['repeat']:
                 MODE['repeat'] = True
-                message = '응 따라할게'
-        elif content == '나를 그만 따라해':
+                message = '응'
+            else:
+                message = '이미 따라하고 있어'
+        elif content == '그만 따라해':
             if MODE['repeat']:
                 MODE['repeat'] = False
-                message = '응 그만 따라할게'
+                message = '응'
+            else:
+                message = '뭐래..'
         elif content == '모드':
             message = '나를 따라해, 나를 그만 따라해'
         else:
