@@ -17,7 +17,8 @@ app = Flask(__name__)
 api = Api(app)
 
 MODE = {
-    'repeat': True
+    'repeat': True,
+    'reverse': True
 }
 
 config = None
@@ -40,7 +41,8 @@ def received_message():
     log.info("Received Message")
     log.info(request.json)
 
-    content = request.json['content'].encode('utf-8')
+    raw_content = request.json['content']
+    content = raw_content.encode('utf-8')
 
     try:
         if content == '칭찬해줘' or content == '칭찬':
@@ -60,11 +62,30 @@ def received_message():
                 message = '응'
             else:
                 message = '뭐래..'
-        elif content == '모드':
-            message = '나를 따라해, 나를 그만 따라해'
+        elif content == '뒤집어':
+            if not MODE['reverse']:
+                MODE['reverse'] = True
+                message = '응'
+            else:
+                message = '어있 고집뒤 미이'
+        elif content == '그만 뒤집어':
+            if MODE['reverse']:
+                MODE['reverse'] = False
+                message = '응'
+            else:
+                message = '뭐래..'
+        elif content == '명령어':
+            message = '따라해, 그만 따라해, 뒤집어, 그만 뒤집어'
+        elif content == '현황':
+            m = []
+            for k, v in MODE.items():
+                m.append('%s : %s' % (k, v))
+            message = '\n'.join(m)
         else:
             if MODE['repeat']:
                 message = content
+            if MODE['reverse']:
+                message = raw_content[::-1].encode('utf-8')
             else:
                 message = '잠깐만...'
     except Exception as e:
