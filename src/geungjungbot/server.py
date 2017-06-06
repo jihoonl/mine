@@ -45,9 +45,13 @@ def received_message():
     content = raw_content.encode('utf-8')
 
     try:
-        if content == '칭찬해줘' or content == '칭찬':
+        if '칭찬' in content:
             idx = randint(0, len(config) - 1)
             message = config[idx]
+        elif '힘들어' in content:
+            message = '힘내! 내가 있자나' + utils.get_heart(2)
+        elif content == '너 멋있어':
+            message = '나도 알아'
         elif content == '사랑해':
             message = '나도 사랑해' + utils.get_heart(2)
         elif content == '따라해':
