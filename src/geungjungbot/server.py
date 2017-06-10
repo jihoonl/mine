@@ -26,10 +26,16 @@ config = None
 
 def _build_response(message):
     # message contains only string data.
-    if isinstance(message, unicode) or isinstance(message, str):
+    if isinstance(message, unicode):
         response = {
             "message": {
                 "text": message.encode('utf-8')
+            }
+        }
+    elif isinstance(message, str):
+        response = {
+            "message": {
+                "text": message
             }
         }
     elif isinstance(message, dict):
