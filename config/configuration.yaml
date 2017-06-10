@@ -3,6 +3,8 @@ praise:
         - '칭찬'
     reply:
         - '힘내'
+        - text: '힘내!'
+          photo: 'https://asset.holidaycardsapp.com/assets/card/Cheerup03-23c6a808aa5fd74cd5ccaa4a6a70de09.png'
         - '좋아해'
         - '너는 멋있어'
         - '너는 잘될꺼야'
@@ -25,7 +27,6 @@ cheerup:
         - '힘내 잘하고 있어!'
         - '이대로 충분해'
         - '포기하지마'
-        - 'https://asset.holidaycardsapp.com/assets/card/Cheerup03-23c6a808aa5fd74cd5ccaa4a6a70de09.png'
 
 
 

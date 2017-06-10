@@ -24,6 +24,35 @@ MODE = {
 config = None
 
 
+def _build_response(message):
+    # message contains only string data.
+    if isinstance(message, unicode) or isinstance(message, str):
+        response = {
+            "message": {
+                "text": message.encode('utf-8')
+            }
+        }
+    elif isinstance(message, dict):
+        response = {
+            "message": {
+                "text": message['text'].encode('utf-8'),
+                "photo": {
+                    "url": message['photo'].encode('utf-8'),
+                    "width": 640,
+                    "height": 480
+                }
+            }
+        }
+    else:
+        response = {
+            "message": {
+                "text": "에러났어. " + str(type(message))
+            }
+        }
+
+    return response
+
+
 @api.representation('application/json')
 @app.route('/keyboard', methods=['GET'])
 def received_keyboard():
@@ -101,11 +130,9 @@ def received_message():
         traceback.print_exc(file=sys.stdout)
         message = '에러났어.. %s' % e
 
-    response = {
-        "message": {
-            "text": message
-        }
-    }
+    response = _build_response(message)
+    log.info(response)
+
     return make_response(jsonify(response), 200)
 
 
