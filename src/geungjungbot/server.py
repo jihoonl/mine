@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from random import randint
+from itertools import cycle
 import traceback
 import yaml
 import logging as log
@@ -45,9 +45,13 @@ def received_message():
     content = raw_content.encode('utf-8')
 
     try:
-        if '칭찬' in content:
-            idx = randint(0, len(config) - 1)
-            message = config[idx]
+        selected = False
+        for k, v in config.items():
+            if any(keyword.encode('utf-8') in content for keyword in v['key']):
+                message = v['reply'].next()
+                selected = True
+        if selected:
+            pass
         elif '힘들어' in content:
             message = '힘내! 내가 있자나' + utils.get_heart(2)
         elif content == '너 멋있어':
@@ -136,7 +140,10 @@ def _load_config(config_file):
     with open(config_file) as f:
         c = yaml.load(f)
     log.info(c)
-    return c['cheerup']
+
+    for k in c.keys():
+        c[k]['reply'] = cycle(c[k]['reply'])
+    return c
 
 
 def spin(config_file, host='localhost', port=5000, debug=True):

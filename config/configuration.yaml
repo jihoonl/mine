@@ -1,22 +1,33 @@
+praise:
+    key:
+        - '칭찬'
+    reply:
+        - '힘내'
+        - '좋아해'
+        - '너는 멋있어'
+        - '너는 잘될꺼야'
+        - '너는 정말 못하는게 없구나'
+        - '널 믿어'
+        - '역시 잘했어'
+        - '책임감이 강하구나'
+        - '조금만 더 힘내'
+        - '괜찮아'
+        - '다행이야'
+        - 'You are amazing and strong'
+        - 'You are doing great'
+        - 'You are smarter than you think'
+        - 'You are the best'
+        - 'Keep it up!'
 cheerup:
-    - '힘내'
-    - '좋아해'
-    - '너는 멋있어'
-    - '너는 잘될꺼야'
-    - '너는 정말 못하는게 없구나'
-    - '널 믿어'
-    - '역시 잘했어'
-    - '이대로 충분해'
-    - '책임감이 강하구나'
-    - '조금만 더 힘내'
-    - '괜찮아'
-    - '다행이야'
-    - '포기하지마'
-    - 'You are amazing and strong'
-    - 'You are doing great"
-    - 'You are smarter than you think'
-    - 'You are the best'
-    - 'Keep it up!'
-    <img src=" https://asset.holidaycardsapp.com/assets/card/Cheerup03-23c6a808aa5fd74cd5ccaa4a6a70de09.png"
-width="640",height="480" alt="" border="0">
+    key:
+        - '위로'
+    reply:
+        - '힘내 잘하고 있어!'
+        - '이대로 충분해'
+        - '포기하지마'
+        - 'https://asset.holidaycardsapp.com/assets/card/Cheerup03-23c6a808aa5fd74cd5ccaa4a6a70de09.png'
 
+
+
+#    <img src=" https://asset.holidaycardsapp.com/assets/card/Cheerup03-23c6a808aa5fd74cd5ccaa4a6a70de09.png"
+#width="640",height="480" alt="" border="0">
