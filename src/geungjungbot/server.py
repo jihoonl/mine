@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+import ast
 from itertools import cycle
 import traceback
 import yaml
@@ -7,6 +8,7 @@ import logging as log
 import sys
 from flask import request, jsonify, Flask,  make_response
 from flask_restful import Api
+import json
 
 # My custom module
 import utils
@@ -70,16 +72,18 @@ def received_keyboard():
     return make_response(jsonify(message), 200)
 
 
-@api.representation('application/json')
+# @api.representation('application/json')
 @app.route('/message', methods=['POST'])
 def received_message():
     log.info("Received Message")
-    log.info(request.json)
-
-    raw_content = request.json['content']
-    content = raw_content.encode('utf-8')
-
     try:
+        log.info(request)
+        data = request.get_json(force=True)
+        log.info(data)
+
+        raw_content = data['content']
+        content = raw_content.encode('utf-8')
+
         selected = False
         for k, v in config.items():
             if any(keyword.encode('utf-8') in content for keyword in v['key']):
