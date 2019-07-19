@@ -5,21 +5,27 @@ def get_heart(num=1):
 def build_response(message):
     # message contains only string data.
     if isinstance(message, unicode):
-        response = {"message": {"text": message.encode('utf-8')}}
+        response = {"simpleText": {"text": message.encode('utf-8')}}
     elif isinstance(message, str):
-        response = {"message": {"text": message}}
+        response = {"simpleText": {"text": message}}
     elif isinstance(message, dict):
         response = {
-            "message": {
-                "text": message['text'].encode('utf-8'),
-                "photo": {
-                    "url": message['photo'].encode('utf-8'),
-                    "width": 640,
-                    "height": 480
-                }
+            "simpleImage": {
+                "altText": message['text'].encode('utf-8'),
+                "imageUrl": message['photo'].encode('utf-8'),
+                "width": 640,
+                "height": 480
             }
         }
     else:
-        response = {"message": {"text": "에러났어. " + str(type(message))}}
+        response = {"simpleText": {"text": "error. " + str(type(message))}}
 
+    response = {
+        "version": "2.0",
+        "template": {
+            "outputs": [
+                response
+            ]
+        }
+    }
     return response

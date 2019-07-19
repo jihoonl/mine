@@ -1,1 +1,3 @@
 sqlalchemy~=1.3.5
+flask_sqlalchemy~=2.4.0
+pytz>=2019.1

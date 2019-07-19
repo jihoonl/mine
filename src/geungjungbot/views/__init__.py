@@ -1,3 +1,3 @@
 blueprints = frozenset([
-    'geunjungbot',
+    'gjbot',
 ])

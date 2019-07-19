@@ -21,8 +21,9 @@ def kst_filter(dt, format_='%Y-%m-%d %H:%M:%S %Z'):
 app.jinja_env.filters['kst'] = kst_filter
 
 for bp in blueprints:
+    print(bp)
     mod = import_string('geungjungbot.views.%s:mod' % bp)
     app.register_blueprint(mod)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+def spin(config_file, host='localhost', port=5000, debug=True):
+    app.run(host=host, port=port, debug=debug)
