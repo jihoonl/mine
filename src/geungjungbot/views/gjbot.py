@@ -5,8 +5,10 @@ from flask import Blueprint, jsonify, make_response, request
 import traceback
 from werkzeug.exceptions import Unauthorized
 
+from ..models.user import get_user, User
 from ..logger import logger
 from ..utils import build_response
+from ..run import db
 
 mod = Blueprint('gb', __name__)
 
@@ -56,11 +58,53 @@ def received_message():
     return make_response(jsonify(response), 200)
 
 
+def parse_command(r):
+    utterance = r['userRequest']['utterance']
+    logger.info('Utterance: {}'.format(utterance.encode('utf-8')))
+    try:
+        command, param = utterance.encode('utf-8').split(',')
+        logger.info(command)
+        logger.info(param)
+    except:
+        command = None
+        param = None
+    return command, param
+
+
+@mod.route('/entry', methods=['POST'])
+def entry():
+    """
+    Check if authorized
+       if yes, check if name is registered
+    If not, ask for secret code
+       if authorized:
+
+    """
+
+
 @mod.route('/fallback', methods=['POST'])
 def fallback_message():
     logger.info("Received Message")
     logger.info(request.json)
-    message = '안녕 '
+    user = get_user(request.json)
+    command, param = parse_command(request.json)
+
+    if not command:
+        if user:
+            message = '안녕 {}'.format(user.name)
+        else:
+            message = '이름을 등록해줘'
+    else:
+        if user:
+            message = '이미 {}로 등록됬어'.format(user.name)
+        else:
+            if command == '등록':
+                u = User(request.json['userRequest']['user']['id'], param)
+                db.session.add(u)
+                db.session.commit()
+                message = '이름이 {}로 등록되었어'.format(u.name)
+            else:
+                message = '모르는 명령어야. {}, {}'.format(command, param)
     response = build_response(message)
     logger.info(response)
     return make_response(jsonify(response), 200)
