@@ -4,15 +4,13 @@ def get_heart(num=1):
 
 def build_response(message):
     # message contains only string data.
-    if isinstance(message, unicode):
-        response = {"simpleText": {"text": message.encode('utf-8')}}
-    elif isinstance(message, str):
+    if isinstance(message, str):
         response = {"simpleText": {"text": message}}
     elif isinstance(message, dict):
         response = {
             "simpleImage": {
-                "altText": message['text'].encode('utf-8'),
-                "imageUrl": message['photo'].encode('utf-8'),
+                "altText": message['text'],
+                "imageUrl": message['photo'],
                 "width": 640,
                 "height": 480
             }

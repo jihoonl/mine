@@ -34,9 +34,9 @@ class Cheerup(db.Model):
 
 def get_types():
     types = db.session.query(Cheerup.type).distinct().all()
-    return [t[0].encode('utf-8') for t in types]
+    return [t[0] for t in types]
 
 
 def get_message(typ):
-    return Cheerup.query.filter_by(type=typ.decode('utf-8')).order_by(
+    return Cheerup.query.filter_by(type=typ).order_by(
         func.random()).first().cheerup()

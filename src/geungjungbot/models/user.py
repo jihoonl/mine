@@ -12,9 +12,8 @@ class User(db.Model):
     _name = db.Column(db.String(64))
 
     def __init__(self, user_id, name):
-        self._user_id = user_id.decode('utf-8')
-        logger.info(name)
-        self._name = name.strip().decode('utf-8')
+        self._user_id = user_id
+        self._name = name.strip()
 
     def __repr__(self):
         return '<User id={}, name={}>'.format(self.user_id, self.name)
@@ -24,11 +23,11 @@ class User(db.Model):
 
     @property
     def name(self):
-        return self._name.encode('utf-8')
+        return self._name
 
     @property
     def user_id(self):
-        return self._user_id.encode('utf-8')
+        return self._user_id
 
 
 def get_user(json):

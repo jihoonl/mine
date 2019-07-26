@@ -26,7 +26,7 @@ def authentication():
 
 def parse_command(utterance):
     try:
-        command, param = utterance.encode('utf-8').split(',')
+        command, param = utterance.split(',')
         logger.info(command)
         logger.info(param)
     except:
@@ -76,10 +76,9 @@ def fallback_message():
     user = get_user(request.json)
     utterance = request.json['userRequest']['utterance']
 
-    logger.info('Utterance: {}'.format(utterance.encode('utf-8')))
+    logger.info('Utterance: {}'.format(utterance))
     if not user:
         return add_user(utterance=utterance)
-    utterance = utterance.encode('utf-8')
 
     command, param = parse_command(utterance)
 
@@ -100,9 +99,6 @@ def fallback_message():
                 response = build_response(message)
             elif isinstance(m, dict):
                 response = build_response(m)
-            elif isinstance(m, unicode):
-                message = '{}아, {}'.format(user.name, m.encode('utf-8'))
-                response = build_response(message)
             else:
                 logger.info(type(m))
                 message = '안녕 {}'.format(user.name)

@@ -1,6 +1,6 @@
 from os import environ
 import yaml
-from logger import logger
+from .logger import logger
 
 import pytz
 from flask import Flask
@@ -24,7 +24,7 @@ def kst_filter(dt, format_='%Y-%m-%d %H:%M:%S %Z'):
 
 
 def _load_config(config_file):
-    with open(config_file) as f:
+    with open(config_file, 'r',encoding='utf8') as f:
         c = yaml.load(f)
     logger.info(c)
 
@@ -41,12 +41,12 @@ def setup():
     from .models.user import User
     from .models.cheers import Cheerup
 
-    #User.metadata.drop_all(bind=db.engine)
-    #User.metadata.create_all(bind=db.engine)
-    #Cheerup.metadata.drop_all(bind=db.engine)
-    #Cheerup.metadata.create_all(bind=db.engine)
-
     """
+    User.metadata.drop_all(bind=db.engine)
+    User.metadata.create_all(bind=db.engine)
+    Cheerup.metadata.drop_all(bind=db.engine)
+    Cheerup.metadata.create_all(bind=db.engine)
+
     global config
     for v in config.values():
         key = v['key']

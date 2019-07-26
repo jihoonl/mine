@@ -1,3 +1,3 @@
 
 #import server as GeungjungServer
-import run as GeungjungServer
+from . import run as GeungjungServer
