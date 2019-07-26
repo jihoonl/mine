@@ -1,6 +1,5 @@
 praise:
-    key:
-        - '칭찬'
+    key: '칭찬'
     reply:
         - '힘내'
         - text: '힘내!'
@@ -21,8 +20,7 @@ praise:
         - 'You are the best'
         - 'Keep it up!'
 cheerup:
-    key:
-        - '위로'
+    key: '위로'
     reply:
         - '힘내 잘하고 있어!'
         - '이대로 충분해'
